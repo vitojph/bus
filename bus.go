@@ -6,7 +6,7 @@ import (
     )
 
 
-// creamos un struc Servicio con la información relativa a cada servicio de autobus
+// creamos un struct Servicio con la información relativa a cada servicio de autobus
 type Servicio struct {
     linea int
     destino string
@@ -18,9 +18,12 @@ type Servicio struct {
 // Servicios es un slice de elementos Servicio
 type Servicios []Servicio
 
+type myTime struct {
+    time.Time // anonymous field
+}
 
 // Carga un listado de horarios de una línea
-func loadLine() Servicios {
+func cargaLinea() Servicios {
 
     var servicios[]Servicio
 
@@ -31,6 +34,21 @@ func loadLine() Servicios {
     return servicios
 }
 
+// filtra los servicios dependiendo de la hora
+func filtraServicios() Servicios  {
+    // TODO: añadir destino como argumento
+    // carga los horarios
+    servicios := cargaLinea()
+    var proximosServicios[]Servicio
+    now := time.Now()
+    // recorremos la lista de servicios e imprimimos los próximos
+    for _, servicio := range servicios {
+        if servicio.salida >= now.Hour() {
+            proximosServicios = append(proximosServicios, servicio)
+        }
+    }
+    return proximosServicios
+}
 
 func main() {
 
@@ -44,13 +62,7 @@ func main() {
     //salida := time.Date(2015, 1, 1, 9, 0, 0, 0, time.UTC)
     //p("La hora que he creado es %s\n", salida)
 
-    servicios := loadLine()
-    p("\n")
+    proximosBuses := filtraServicios()
+    fmt.Println(proximosBuses)
 
-    // recorremos la lista de servicios e imprimimos los próximos
-    for _, servicio := range servicios {
-        if servicio.salida >= now.Hour() {
-            fmt.Println(servicio)
-        }
-    }
 }
