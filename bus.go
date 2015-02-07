@@ -18,17 +18,18 @@ type Servicio struct {
 // Servicios es un slice de elementos Servicio
 type Servicios []Servicio
 
+
 // Carga un listado de horarios de una línea
 func loadLine() Servicios {
 
     var servicios[]Servicio
-    for i := 1; i < 11; i++ {
+
+    for i := 0; i < 24; i++ {
         servicio := Servicio{linea:528, destino:"Madrid", salida:i, recorrido:"Cuesta del Águila"}
         servicios = append(servicios, servicio)
     }
     return servicios
 }
-
 
 
 func main() {
@@ -37,14 +38,19 @@ func main() {
     now := time.Now()
     p("Ahora es %s\n", now)
 
-    t := time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC)
-    p("Go launched at %s\n", t.Local())
+    //t := time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC)
+    //p("Go launched at %s\n", t.Local())
 
-    salida := time.Date(2015, 1, 1, 9, 0, 0, 0, time.UTC)
-    p("La hora que he creado es %s\n", salida)
-
+    //salida := time.Date(2015, 1, 1, 9, 0, 0, 0, time.UTC)
+    //p("La hora que he creado es %s\n", salida)
 
     servicios := loadLine()
-    p("\n\n")
-    fmt.Println(servicios)
+    p("\n")
+
+    // recorremos la lista de servicios e imprimimos los próximos
+    for _, servicio := range servicios {
+        if servicio.salida >= now.Hour() {
+            fmt.Println(servicio)
+        }
+    }
 }
