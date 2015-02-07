@@ -6,24 +6,45 @@ import (
     )
 
 
-// creamos un struc servicio con la información relativa a cada servicio de autobus
-type servicio struct {
+// creamos un struc Servicio con la información relativa a cada servicio de autobus
+type Servicio struct {
     linea int
-    origen string
     destino string
-    //salida time.Clock
-    //llegada time.Clock
+    salida int
+    llegada string
     recorrido string
 }
 
+// Servicios es un slice de elementos Servicio
+type Servicios []Servicio
+
+// Carga un listado de horarios de una línea
+func loadLine() Servicios {
+
+    var servicios[]Servicio
+    for i := 1; i < 11; i++ {
+        servicio := Servicio{linea:528, destino:"Madrid", salida:i, recorrido:"Cuesta del Águila"}
+        servicios = append(servicios, servicio)
+    }
+    return servicios
+}
+
+
+
 func main() {
+
+    p := fmt.Printf
     now := time.Now()
-    fmt.Printf("Ahora es %s\n", now)
+    p("Ahora es %s\n", now)
 
     t := time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC)
-    fmt.Printf("Go launched at %s\n", t.Local())
+    p("Go launched at %s\n", t.Local())
 
-    //salida := time.Clock(9, 0, 0)
-    //fmt.Println(salida)
+    salida := time.Date(2015, 1, 1, 9, 0, 0, 0, time.UTC)
+    p("La hora que he creado es %s\n", salida)
 
+
+    servicios := loadLine()
+    p("\n\n")
+    fmt.Println(servicios)
 }
