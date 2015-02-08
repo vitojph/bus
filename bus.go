@@ -36,16 +36,18 @@ func check(e error) {
 
 
 // filtra los servicios dependiendo de la hora
-func filtraServicios(servicios Servicios) Servicios  {
+func filtraServicios(servicios Servicios, destino string) Servicios  {
     // TODO: añadir destino como argumento
     // y número total de expediciones
     var proximosServicios[]Servicio
     now := time.Now()
     // recorremos la lista de servicios e imprimimos los próximos
     for _, servicio := range servicios {
-        if servicio.h_salida >= now.Hour() {
-            if servicio.m_salida >= now.Minute(){
-                proximosServicios = append(proximosServicios, servicio)
+        if servicio.destino == destino {
+            if servicio.h_salida >= now.Hour() {
+                if servicio.m_salida >= now.Minute(){
+                    proximosServicios = append(proximosServicios, servicio)
+                }
             }
         }
     }
@@ -59,6 +61,7 @@ type Servicio struct {
     destino string
     h_salida int
     m_salida int
+    //hora Time
 }
 
 // Servicios es un slice de elementos Servicio
@@ -91,19 +94,16 @@ func main() {
     now := time.Now()
     p("Ahora es %s\n", now)
 
-    proximosBuses := filtraServicios(servicios)
+    busesAMadrid := filtraServicios(servicios, "madrid")
     p("Navalcarnero -> Madrid\n")
-    for _, item := range proximosBuses{
-        if item.destino == "madrid" {
+    for _, item := range busesAMadrid{
             fmt.Println(item)
-        }
     }
 
+    busesANaval := filtraServicios(servicios, "navalcarnero")
     p("\nMadrid -> Navalcarnero\n")
-    for _, item := range proximosBuses{
-        if item.destino == "navalcarnero" {
+    for _, item := range busesANaval{
             fmt.Println(item)
-        }
-    }
+   }
 
 }
