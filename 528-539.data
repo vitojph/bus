@@ -1,5 +1,22 @@
 // Navalcarnero - Madrid
 // laborables
+*,539,madrid,6,30
+*,539,madrid,7,30
+*,539,madrid,8,30
+*,539,madrid,9,30
+*,539,madrid,10,30
+*,539,madrid,11,30
+*,539,madrid,12,30
+*,539,madrid,13,30
+*,539,madrid,14,30
+*,539,madrid,15,30
+*,539,madrid,16,30
+*,539,madrid,17,30
+*,539,madrid,18,30
+*,539,madrid,19,30
+*,539,madrid,20,30
+*,539,madrid,21,30
+*,539,madrid,22,30
 diario,528,madrid,6,00
 diario,528,madrid,6,20
 diario,528,madrid,6,40
@@ -106,6 +123,23 @@ buho,528,madrid,1,00
 buho,528,madrid,2,15
 // Madrid - Navalcarnero
 // laborables
+*,539,navalcarnero,7,30
+*,539,navalcarnero,8,30
+*,539,navalcarnero,9,30
+*,539,navalcarnero,10,30
+*,539,navalcarnero,11,30
+*,539,navalcarnero,12,30
+*,539,navalcarnero,13,30
+*,539,navalcarnero,14,30
+*,539,navalcarnero,15,30
+*,539,navalcarnero,16,30
+*,539,navalcarnero,17,30
+*,539,navalcarnero,18,30
+*,539,navalcarnero,19,30
+*,539,navalcarnero,20,30
+*,539,navalcarnero,21,30
+*,539,navalcarnero,22,30
+*,539,navalcarnero,23,30
 diario,528,navalcarnero,7,00
 diario,528,navalcarnero,7,20
 diario,528,navalcarnero,7,40
