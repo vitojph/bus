@@ -34,6 +34,32 @@ func check(e error) {
     }
 }
 
+// carga la lista de servicios a partir de los ficheros *.data
+func cargaServicios(filenames ...string) Servicios {
+    var servicios[]Servicio
+
+    // cargo los horarios
+    for _, filename := range filenames {
+        fmt.Println(filename)
+        lines, err := readLines(filename)
+        check(err)
+        for _, line := range lines {
+            if !strings.HasPrefix(line, "//") {
+                fields := strings.Split(line, ",")
+                linea, err := strconv.Atoi(fields[1])
+                check(err)
+                h_salida, err := strconv.Atoi(fields[3])
+                check(err)
+                m_salida, err := strconv.Atoi(fields[4])
+                check(err)
+
+                esteServicio := Servicio{horario: fields[0], linea: linea, destino: fields[2], h_salida: h_salida, m_salida: m_salida}
+                servicios = append(servicios, esteServicio)
+            }
+        }
+    }
+    return servicios
+}
 
 // filtra los servicios dependiendo de la hora
 func filtraServicios(servicios Servicios, destino string) Servicios  {
@@ -69,26 +95,8 @@ type Servicios []Servicio
 
 
 func main() {
-    // creo el slice de servicios
-    var servicios[]Servicio
-
-    // cargo los horarios
-    lines, err := readLines("/data/go/src/github.com/vitojph/bus/528.data")
-    check(err)
-    for _, line := range lines {
-        if !strings.HasPrefix(line, "//") {
-            fields := strings.Split(line, ",")
-            linea, err := strconv.Atoi(fields[1])
-            check(err)
-            h_salida, err := strconv.Atoi(fields[3])
-            check(err)
-            m_salida, err := strconv.Atoi(fields[4])
-            check(err)
-
-            esteServicio := Servicio{horario: fields[0], linea: linea, destino: fields[2], h_salida: h_salida, m_salida: m_salida}
-            servicios = append(servicios, esteServicio)
-        }
-    }
+    // carga lista de servicios
+    servicios := cargaServicios("528-539.data", "529.data")
 
     p := fmt.Printf
     now := time.Now()
