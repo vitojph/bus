@@ -40,7 +40,7 @@ func cargaServicios(filenames ...string) Servicios {
 
     // cargo los horarios
     for _, filename := range filenames {
-        fmt.Println(filename)
+        //fmt.Println(filename)
         lines, err := readLines(filename)
         check(err)
         for _, line := range lines {
@@ -61,18 +61,53 @@ func cargaServicios(filenames ...string) Servicios {
     return servicios
 }
 
+// comprueba si la fecha actual es durante el horario de verano
+func esVerano() bool {
+    now := time.Now()
+    if now.Month() == 8 {
+        return true
+    } else {
+        return false
+    }
+}
+
+// comprueba si la fecha actual es fin de semana
+func esFinde() bool {
+    findes := map[string]int{"Saturday": 1, "Sunday": 1}
+    now := time.Now()
+    day := fmt.Sprintf("%s", now.Weekday())
+    _, ok := findes[day]
+    return ok
+}
+
+
 // filtra los servicios dependiendo de la hora
 func filtraServicios(servicios Servicios, destino string) Servicios  {
     // TODO: añadir destino como argumento
     // y número total de expediciones
     var proximosServicios[]Servicio
     now := time.Now()
+
+    // comprobamos el horario que necesitamos
+    var horario string
+    if !esFinde() {
+        horario = "diario"
+        if esVerano() {
+            horario = "verano"
+        }
+    } else {
+        horario = "festivo"
+    }
+
     // recorremos la lista de servicios e imprimimos los próximos
     for _, servicio := range servicios {
         if servicio.destino == destino {
-            if servicio.h_salida >= now.Hour() {
-                if servicio.m_salida >= now.Minute(){
-                    proximosServicios = append(proximosServicios, servicio)
+            if servicio.horario == horario || servicio.horario == "*" {
+                if servicio.h_salida >= now.Hour() {
+                    if servicio.m_salida >= now.Minute() {
+                        proximosServicios = append(proximosServicios, servicio)
+                    } else {
+                    }
                 }
             }
         }
@@ -100,18 +135,18 @@ func main() {
 
     p := fmt.Printf
     now := time.Now()
-    p("Ahora es %s\n", now)
+    p("%s %d %s %d, a las %d:%d\n", now.Weekday(), now.Day(), now.Month(), now.Year(), now.Hour(), now.Minute())
 
     busesAMadrid := filtraServicios(servicios, "madrid")
-    p("Navalcarnero -> Madrid\n")
+    p("a Madrid\n")
     for _, item := range busesAMadrid{
-            fmt.Println(item)
+        p("  - %d -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
     }
 
     busesANaval := filtraServicios(servicios, "navalcarnero")
-    p("\nMadrid -> Navalcarnero\n")
+    p("a Navalcarnero\n")
     for _, item := range busesANaval{
-            fmt.Println(item)
+        p("  - %d -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
    }
 
 }

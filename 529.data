@@ -28,19 +28,19 @@ diario,529,móstoles,21,25
 diario,529,móstoles,22,25
 diario,529,móstoles,23,25
 // verano
-diario,529,móstoles,6,00
-diario,529,móstoles,8,00
-diario,529,móstoles,10,00
-diario,529,móstoles,11,00
-diario,529,móstoles,13,00
-diario,529,móstoles,14,00
-diario,529,móstoles,16,00
-diario,529,móstoles,17,00
-diario,529,móstoles,19,00
-diario,529,móstoles,20,00
-diario,529,móstoles,22,00
-diario,529,móstoles,23,00
-diario,529,móstoles,23,30
+verano,529,móstoles,6,00
+verano,529,móstoles,8,00
+verano,529,móstoles,10,00
+verano,529,móstoles,11,00
+verano,529,móstoles,13,00
+verano,529,móstoles,14,00
+verano,529,móstoles,16,00
+verano,529,móstoles,17,00
+verano,529,móstoles,19,00
+verano,529,móstoles,20,00
+verano,529,móstoles,22,00
+verano,529,móstoles,23,00
+verano,529,móstoles,23,30
 // festivo
 festivo,529,móstoles,8,00
 festivo,529,móstoles,10,00
