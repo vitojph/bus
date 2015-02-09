@@ -118,7 +118,7 @@ festivo,528,madrid,21,00
 festivo,528,madrid,22,00
 festivo,528,madrid,23,00
 // búhos, vsd
-buho,528,madrid,0,00
+buho,528,madrid,24,00
 buho,528,madrid,1,00
 buho,528,madrid,2,15
 // Madrid - Navalcarnero
@@ -183,7 +183,7 @@ diario,528,navalcarnero,22,00
 diario,528,navalcarnero,22,30
 diario,528,navalcarnero,23,00
 diario,528,navalcarnero,23,30
-diario,528,navalcarnero,0,00
+diario,528,navalcarnero,24,00
 // laborables de verano
 verano,528,navalcarnero,7,00
 verano,528,navalcarnero,7,30
@@ -219,7 +219,7 @@ verano,528,navalcarnero,22,00
 verano,528,navalcarnero,22,30
 verano,528,navalcarnero,23,00
 verano,528,navalcarnero,23,30
-verano,528,navalcarnero,0,00
+verano,528,navalcarnero,24,00
 // findes y festivos
 festivo,528,navalcarnero,7,00
 festivo,528,navalcarnero,8,00
@@ -238,7 +238,7 @@ festivo,528,navalcarnero,20,00
 festivo,528,navalcarnero,21,00
 festivo,528,navalcarnero,22,00
 festivo,528,navalcarnero,23,00
-festivo,528,navalcarnero,0,00
+festivo,528,navalcarnero,24,00
 // búhos, vsd
 buho,528,navalcarnero,1,00
 buho,528,navalcarnero,2,00

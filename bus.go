@@ -46,14 +46,12 @@ func cargaServicios(filenames ...string) Servicios {
         for _, line := range lines {
             if !strings.HasPrefix(line, "//") {
                 fields := strings.Split(line, ",")
-                linea, err := strconv.Atoi(fields[1])
-                check(err)
                 h_salida, err := strconv.Atoi(fields[3])
                 check(err)
                 m_salida, err := strconv.Atoi(fields[4])
                 check(err)
 
-                esteServicio := Servicio{horario: fields[0], linea: linea, destino: fields[2], h_salida: h_salida, m_salida: m_salida}
+                esteServicio := Servicio{horario: fields[0], linea: fields[1], destino: fields[2], h_salida: h_salida, m_salida: m_salida}
                 servicios = append(servicios, esteServicio)
             }
         }
@@ -118,7 +116,7 @@ func filtraServicios(servicios Servicios, destino string) Servicios  {
 // creamos un struct Servicio con la información relativa a cada servicio de autobus
 type Servicio struct {
     horario string
-    linea int
+    linea string
     destino string
     h_salida int
     m_salida int
@@ -140,13 +138,13 @@ func main() {
     busesAMadrid := filtraServicios(servicios, "madrid")
     p("a Madrid\n")
     for _, item := range busesAMadrid{
-        p("  - %d -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
+        p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
     }
 
     busesANaval := filtraServicios(servicios, "navalcarnero")
     p("a Navalcarnero\n")
     for _, item := range busesANaval{
-        p("  - %d -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
+        p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
    }
 
 }
