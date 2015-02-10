@@ -1,0 +1,20 @@
+// Navalcarnero - Móstoles
+// laborables
+// http://www.elgatobus.es/admin/fichiers/horarios/18_1.pdf
+diario,54N,móstoles,4,00
+
+// festivo
+festivo,529A,móstoles,7,00
+festivo,529,móstoles,23,30
+// Móstoles - Navalcarnero
+// laborables
+diario,529H,navalcarnero,6,00
+diario,529,navalcarnero,23,25
+// verano
+verano,529,navalcarnero,6,10
+verano,529A,navalcarnero,7,10
+verano,529,navalcarnero,24,10
+// festivos y findes
+verano,529A,navalcarnero,7,10
+festivo,529,navalcarnero,23,10
+festivo,529,navalcarnero,24,10
