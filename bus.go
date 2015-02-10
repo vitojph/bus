@@ -102,7 +102,7 @@ func filtraServicios(servicios Servicios, destino string) Servicios  {
         if servicio.destino == destino {
             if servicio.horario == horario || servicio.horario == "*" {
                 if servicio.h_salida >= now.Hour() {
-                    if servicio.m_salida >= now.Minute() {
+                    if servicio.m_salida >= now.Hour() {
                         proximosServicios = append(proximosServicios, servicio)
                     } else {
                     }
@@ -129,7 +129,7 @@ type Servicios []Servicio
 
 func main() {
     // carga lista de servicios
-    servicios := cargaServicios("528-539.data", "529.data")
+    servicios := cargaServicios("data/528-539.data", "data/529.data")
 
     p := fmt.Printf
     now := time.Now()
