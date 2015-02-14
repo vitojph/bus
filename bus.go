@@ -4,7 +4,7 @@ import (
     "fmt"
     "os"
     "bufio"
-    "sort"
+//    "sort"
     "strings"
     "time"
     "strconv"
@@ -98,6 +98,7 @@ func filtraServicios(servicios Servicios, destino string) Servicios  {
     // recorremos la lista de servicios e imprimimos los próximos
     fmt.Println(horario, destino)
     for _, servicio := range servicios {
+        //fmt.Println(servicio)
         if servicio.destino == destino {
             if servicio.horario == horario || servicio.horario == "*" {
                 if servicio.h_salida >= now.Hour() {
@@ -142,7 +143,7 @@ func (a PorHora) Less(i, j int) bool {
 
 func main() {
     // carga lista de servicios
-    servicios := cargaServicios("data/528.data", "data/539.data", "data/54N.data", "data/529.data")
+    servicios := cargaServicios("data/528.data", "data/529.data", "data/54N.data", "data/529.data")
 
     p := fmt.Printf
     now := time.Now()
@@ -150,15 +151,22 @@ func main() {
 
     busesAMadrid := filtraServicios(servicios, "madrid")
     p("a Madrid\n")
-    sort.Sort(PorHora(busesAMadrid))
+    //sort.Sort(PorHora(busesAMadrid))
     for _, item := range busesAMadrid{
+        p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
+    }
+
+    busesAMostoles := filtraServicios(servicios, "móstoles")
+    p("a Móstoles\n")
+    //sort.Sort(PorHora(busesAMadrid))
+    for _, item := range busesAMostoles{
         p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
     }
 
     busesANaval := filtraServicios(servicios, "navalcarnero")
     p("a Navalcarnero\n")
 
-    sort.Sort(PorHora(busesANaval))
+    //sort.Sort(PorHora(busesANaval))
     for _, item := range busesANaval{
         p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
    }
