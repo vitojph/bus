@@ -4,6 +4,7 @@ import (
     "fmt"
     "os"
     "bufio"
+    "sort"
     "strings"
     "time"
     "strconv"
@@ -87,17 +88,15 @@ func filtraServicios(servicios Servicios, destino string) Servicios  {
     now := time.Now()
 
     // comprobamos el horario que necesitamos
-    var horario string
-    if !esFinde() {
-        horario = "diario"
+    horario := "diario"
+    if esFinde() {
+        horario = "festivo"
         if esVerano() {
             horario = "verano"
         }
-    } else {
-        horario = "festivo"
     }
-
     // recorremos la lista de servicios e imprimimos los próximos
+    fmt.Println(horario, destino)
     for _, servicio := range servicios {
         if servicio.destino == destino {
             if servicio.horario == horario || servicio.horario == "*" {
@@ -126,10 +125,24 @@ type Servicio struct {
 // Servicios es un slice de elementos Servicio
 type Servicios []Servicio
 
+// ordenados Servicios por hora
+type PorHora []Servicio
+
+func (a PorHora) Len() int {
+    return len(a)
+}
+
+func (a PorHora) Swap(i, j int) {
+    a[i], a[j] = a[j], a[i]
+}
+
+func (a PorHora) Less(i, j int) bool {
+    return a[i].h_salida < a[j].h_salida || (a[i].h_salida == a[j].h_salida && a[i].m_salida < a[j].m_salida )
+}
 
 func main() {
     // carga lista de servicios
-    servicios := cargaServicios("data/528-539.data", "data/529.data")
+    servicios := cargaServicios("data/528.data", "data/539.data", "data/54N.data", "data/529.data")
 
     p := fmt.Printf
     now := time.Now()
@@ -137,12 +150,15 @@ func main() {
 
     busesAMadrid := filtraServicios(servicios, "madrid")
     p("a Madrid\n")
+    sort.Sort(PorHora(busesAMadrid))
     for _, item := range busesAMadrid{
         p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
     }
 
     busesANaval := filtraServicios(servicios, "navalcarnero")
     p("a Navalcarnero\n")
+
+    sort.Sort(PorHora(busesANaval))
     for _, item := range busesANaval{
         p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
    }
