@@ -2,38 +2,12 @@ package main
 
 import (
     "fmt"
-    "os"
-    "bufio"
-//    "sort"
+    "sort"
     "strings"
     "time"
     "strconv"
+    "github.com/vitojph/myutils"
 )
-
-// readLines reads a whole file into memory
-// and returns a slice of its lines.
-func readLines(path string) ([]string, error) {
-    file, err := os.Open(path)
-    if err != nil {
-        return nil, err
-    }
-    defer file.Close()
-
-    var lines []string
-    scanner := bufio.NewScanner(file)
-    for scanner.Scan() {
-        lines = append(lines, scanner.Text())
-    }
-    return lines, scanner.Err()
-}
-
-// Reading files requires checking most calls for errors.
-// This helper will streamline our error checks below.
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
-}
 
 // carga la lista de servicios a partir de los ficheros *.data
 func cargaServicios(filenames ...string) Servicios {
@@ -42,15 +16,15 @@ func cargaServicios(filenames ...string) Servicios {
     // cargo los horarios
     for _, filename := range filenames {
         //fmt.Println(filename)
-        lines, err := readLines(filename)
-        check(err)
+        lines, err := myutils.ReadLines(filename)
+        myutils.Check(err)
         for _, line := range lines {
             if !strings.HasPrefix(line, "//") {
                 fields := strings.Split(line, ",")
                 h_salida, err := strconv.Atoi(fields[3])
-                check(err)
+                myutils.Check(err)
                 m_salida, err := strconv.Atoi(fields[4])
-                check(err)
+                myutils.Check(err)
 
                 esteServicio := Servicio{horario: fields[0], linea: fields[1], destino: fields[2], h_salida: h_salida, m_salida: m_salida}
                 servicios = append(servicios, esteServicio)
@@ -78,7 +52,6 @@ func esFinde() bool {
     _, ok := findes[day]
     return ok
 }
-
 
 // filtra los servicios dependiendo de la hora
 func filtraServicios(servicios Servicios, destino string) Servicios  {
@@ -143,7 +116,7 @@ func (a PorHora) Less(i, j int) bool {
 
 func main() {
     // carga lista de servicios
-    servicios := cargaServicios("data/528.data", "data/529.data", "data/54N.data", "data/529.data")
+    servicios := cargaServicios("data/528.data", "data/539.data", "data/54N.data", "data/529.data")
 
     p := fmt.Printf
     now := time.Now()
@@ -151,14 +124,14 @@ func main() {
 
     busesAMadrid := filtraServicios(servicios, "madrid")
     p("a Madrid\n")
-    //sort.Sort(PorHora(busesAMadrid))
+    sort.Sort(PorHora(busesAMadrid))
     for _, item := range busesAMadrid{
         p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
     }
 
     busesAMostoles := filtraServicios(servicios, "móstoles")
     p("a Móstoles\n")
-    //sort.Sort(PorHora(busesAMadrid))
+    sort.Sort(PorHora(busesAMadrid))
     for _, item := range busesAMostoles{
         p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
     }
@@ -166,7 +139,7 @@ func main() {
     busesANaval := filtraServicios(servicios, "navalcarnero")
     p("a Navalcarnero\n")
 
-    //sort.Sort(PorHora(busesANaval))
+    sort.Sort(PorHora(busesANaval))
     for _, item := range busesANaval{
         p("  - %s -> %d:%d\n", item.linea, item.h_salida, item.m_salida)
    }
